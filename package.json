@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/rissem/zazen/issues"
   },
-  "homepage": "https://github.com/rissem/zazen"
+  "homepage": "https://github.com/rissem/zazen",
+  "dependencies": {
+    "express": "^4.12.3"
+  }
 }
