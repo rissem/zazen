@@ -1,0 +1,23 @@
+{
+  "name": "zazen",
+  "version": "0.0.1",
+  "description": "full screen CodeMirror editor backed by a filesystem",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rissem/zazen.git"
+  },
+  "keywords": [
+    "editor",
+    "CodeMirror"
+  ],
+  "author": "Mike Risse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rissem/zazen/issues"
+  },
+  "homepage": "https://github.com/rissem/zazen"
+}
