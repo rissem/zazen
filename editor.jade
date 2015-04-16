@@ -11,7 +11,7 @@ html(lang="en")
     script(src="/code-mirror/lib/codeMirror.js")
     script(src="/code-mirror/mode/javascript/javascript.js")
     script(src="/code-mirror/addon/display/fullscreen.js")
-    script(src="https://code.jquery.com/jquery-2.1.3.min.js")
+    script(src="/public/jquery-2.1.3.min.js")
 
     script.
       $(document.body).ready(function(){
@@ -20,6 +20,8 @@ html(lang="en")
 
   body
     h1 Jade - node template engine
+    //button must appear above the full screen editor
+    button#save(style="z-index:10; position:absolute; top:0px; right:0px;" value="Save")
     #container.col
       if youAreUsingJade
         p You are amazing
