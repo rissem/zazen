@@ -1,27 +1,31 @@
 doctype html
 html(lang="en")
   head
-    title="CodeMirror: Full Screen Editing"
+    title=filepath
     meta(charset="utf-8")
 
     link(rel="stylesheet", href="/code-mirror/lib/codemirror.css")
     link(rel="stylesheet", href="/code-mirror/addon/display/fullscreen.css")
     link(rel="stylesheet", href="/code-mirror/theme/night.css")
 
+    link(rel="stylesheet", href="/public/style.css")
+
     script(src="/code-mirror/lib/codeMirror.js")
     script(src="/code-mirror/mode/javascript/javascript.js")
+    script(src="/code-mirror/mode/jade/jade.js")
+    script(src="/code-mirror/mode/meta.js")
     script(src="/code-mirror/addon/display/fullscreen.js")
+    script(src="/code-mirror/mode/meta.js")
     script(src="/public/jquery-2.1.3.min.js")
 
     script.
       $(document.body).ready(function(){
-        var codeMirror = CodeMirror(document.getElementById('firepad'), { lineWrapping: true, fullScreen:true, mode:"javascript", theme:"night"});
+        var codeMirror = CodeMirror(document.getElementById('firepad'), { lineWrapping: true, fullScreen:true, mode:CodeMirror.findModeByFileName("#{filepath}").mode, theme:"night", value: $("#fileContents").val()});
       })
 
   body
     h1 Jade - node template engine
-    //button must appear above the full screen editor
-    button#save(style="z-index:10; position:absolute; top:0px; right:0px;" value="Save")
+    button#save="Save"
     #container.col
       if youAreUsingJade
         p You are amazing
@@ -30,4 +34,5 @@ html(lang="en")
       p.
         Jade is a terse and simple templating language with a
         strong focus on performance and powerful features.
-    div#firepad
+    textarea#fileContents(style="display:none")=file
+    div#firepad(style="margin:8px")

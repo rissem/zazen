@@ -4,15 +4,20 @@ var jade = require('jade');
 var fs = require('fs');
 var path = require('path');
 
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 app.use("/code-mirror", express.static('CodeMirror'));
 
-app.get("*", function(req, res){
-  console.log(req.path);
+app.get("*", function(req, res, next){
   var editorTemplate = path.join(__dirname, "editor.jade");
-  var html = jade.renderFile(editorTemplate, {youAreUsingJade: true, filepath: req.path});
-
-  res.send(html);
+  console.log("LOAD FILE", req.path)
+  fs.readFile(path.join(process.cwd(), req.path), function(err, data){
+    if (err){
+      res.status(500).send(err);
+    } else {
+      var html = jade.renderFile(editorTemplate, {youAreUsingJade: true, file: data, filepath: req.path});
+      res.send(html);
+    }
+  })
 });
 
 app.post("*", function(req, res){

@@ -1,0 +1,12 @@
+.CodeMirror {
+    padding: 5px;
+}
+
+button#save {
+    padding:5px;
+    background-color:light-grey;
+    z-index:10;
+    position:absolute;
+    top:5px;
+    right:5px;
+}
