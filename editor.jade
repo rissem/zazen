@@ -20,19 +20,19 @@ html(lang="en")
 
     script.
       $(document.body).ready(function(){
-        var codeMirror = CodeMirror(document.getElementById('firepad'), { lineWrapping: true, fullScreen:true, mode:CodeMirror.findModeByFileName("#{filepath}").mode, theme:"night", value: $("#fileContents").val()});
-      })
+        codeMirror = CodeMirror(document.getElementById('firepad'), { lineWrapping: true, fullScreen:true, mode:CodeMirror.findModeByFileName("#{filepath}").mode, theme:"night", value: $("#fileContents").val()});
 
+        $("#save").click(function(){
+          var result = $.post(document.location.href, {fileData:codeMirror.getValue()}).
+          done(function(data){
+          //TODO mark as saved in client somehow
+          })
+        })
+
+      })
   body
     h1 Jade - node template engine
     button#save="Save"
     #container.col
-      if youAreUsingJade
-        p You are amazing
-      else
-        p Get on it!
-      p.
-        Jade is a terse and simple templating language with a
-        strong focus on performance and powerful features.
     textarea#fileContents(style="display:none")=file
     div#firepad(style="margin:8px")

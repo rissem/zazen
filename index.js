@@ -3,7 +3,9 @@ var app = express();
 var jade = require('jade');
 var fs = require('fs');
 var path = require('path');
+var bodyParser = require('body-parser')
 
+app.use(bodyParser.urlencoded({extended: true}));
 app.use('/public', express.static('public'));
 app.use("/code-mirror", express.static('CodeMirror'));
 
@@ -21,8 +23,16 @@ app.get("*", function(req, res, next){
 });
 
 app.post("*", function(req, res){
-  console.log(req.path);
-  res.status(200).send("POST hello there");
+  console.log("WRITE FILE", req.path);
+  console.log("DATA", req.body.fileData)
+
+  fs.writeFile(path.join(process.cwd(), req.path), req.body.fileData, function(err, data){
+    if (err){
+      res.status(500).send(err);
+    } else {
+      res.status(200).send("SUCCESS");
+    }
+  });
 });
 
 
