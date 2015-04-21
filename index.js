@@ -13,7 +13,11 @@ app.get("*", function(req, res, next){
   var editorTemplate = path.join(__dirname, "editor.jade");
   console.log("LOAD FILE", req.path)
   fs.readFile(path.join(process.cwd(), req.path), function(err, data){
-    if (err){
+    //test for missing file, in that case just return an empty string
+    if (err && err.code === "ENOENT"){
+      var html = jade.renderFile(editorTemplate, {youAreUsingJade: true, file: '', filepath: req.path});
+      res.status(201).send(html)
+    } else if (err){
       res.status(500).send(err);
     } else {
       var html = jade.renderFile(editorTemplate, {youAreUsingJade: true, file: data, filepath: req.path});
@@ -23,9 +27,6 @@ app.get("*", function(req, res, next){
 });
 
 app.post("*", function(req, res){
-  console.log("WRITE FILE", req.path);
-  console.log("DATA", req.body.fileData)
-
   fs.writeFile(path.join(process.cwd(), req.path), req.body.fileData, function(err, data){
     if (err){
       res.status(500).send(err);
